@@ -24,6 +24,8 @@ parents['fin'] = None
 
 processed = [] #记录处理过的点
 
+
+
 #找出开销最低的节点
 def find_lowest_cost_node(costs):
     lowest_const = float('inf')
