@@ -1,3 +1,4 @@
+import aiohttp
 #狄克斯特拉算法 ,适合计算有正向权重的最优路径
 graph = {}
 graph['start'] = {}
@@ -26,6 +27,7 @@ processed = [] #记录处理过的点
 
 
 
+
 #找出开销最低的节点
 def find_lowest_cost_node(costs):
     lowest_const = float('inf')
@@ -35,9 +37,25 @@ def find_lowest_cost_node(costs):
         if(cost < lowest_const and node not in processed):
             lowest_const = cost
             lower_cost_node = node
-    return lowest_const
+    print(lower_cost_node)
+    return lower_cost_node
 
 
 
 if __name__ == '__main__':
-    print(find_lowest_cost_node(costs))
+    # noinspection PyInterpreter
+    node = find_lowest_cost_node(costs)
+    while node is not None:
+        cost = costs[node]
+        if node in graph.keys():
+            neighbors = graph[node]
+            for n in neighbors.keys():
+                new_cost = cost + neighbors[n]
+                if(costs[n] > new_cost):
+                    costs[n] = new_cost
+                    parents[n] = node
+            processed.append(node)
+            node = find_lowest_cost_node(costs)
+
+
+
